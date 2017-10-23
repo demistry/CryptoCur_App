@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="12dp">
+        <TextView
+            android:id="@+id/converted_base_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3000"
+            android:padding="2dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
+        <TextView
+            android:id="@+id/converted_base_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NGR"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:padding="2dp"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="is exchanged at"
+        android:layout_marginTop="48dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="italic"
+        android:textColor="@color/colorAccent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="48dp"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/converted_cryptocurrency_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:padding="2dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
+        <TextView
+            android:id="@+id/converted_cryptocurrency_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\n\nBTC"
+            android:padding="2dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/home_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="Home"
+        android:background="@drawable/button_curved_background"/>
+
+
+</LinearLayout>
