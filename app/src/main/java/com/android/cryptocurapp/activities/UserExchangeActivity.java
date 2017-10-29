@@ -6,9 +6,9 @@ import android.content.Loader;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +24,6 @@ import com.android.cryptocurapp.fragments.ConversionDialogFragment;
 import com.android.cryptocurapp.models.CryptoCurContract;
 import com.android.cryptocurapp.network.ExchangeLoaderClass;
 import com.android.cryptocurapp.network.JSONHelper;
-import com.android.cryptocurapp.storage.CryptoCurDatabase;
 import com.android.cryptocurapp.utils.ExchangeRateAdapter;
 
 import java.util.ArrayList;
@@ -64,8 +63,6 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
         btcExchangeArray = JSONHelper.parseDisplayJsonString(data,0);
         ethExchangeArray = JSONHelper.parseDisplayJsonString(data, 1);
         updateList();
-        //Log.v("LOG", btcExchangeArray.toString());
-        //Log.v("LOG", ethExchangeArray.toString());
 
     }
 
@@ -139,14 +136,11 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
     private void saveTextToDatabase(String crypto, String base){
         this.crypto = crypto;
         this.base = base;
-        CryptoCurDatabase cryptDatabase = new CryptoCurDatabase(this);
-        SQLiteDatabase db = cryptDatabase.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CryptoCurContract.CRYPTOCURRENCY_COLUMN, crypto);
         contentValues.put(CryptoCurContract.BASECURRENCY_COLUMN, base);
         contentValues.put(CryptoCurContract.EXCHANGERATE_COLUMN, showExchangeRate(crypto,base));
-        db.insert(CryptoCurContract.CRYPTOCUR_TABLE, null, contentValues);
-        db.close();
+        getContentResolver().insert(CryptoCurContract.CONTENT_BASE_URI, contentValues);
         updateList();
     }
     private ArrayList<String> retrieveTextFromDatabase(int currencyType){
@@ -154,67 +148,49 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
         String [] cryptoColumn = {CryptoCurContract.CRYPTOCURRENCY_COLUMN};
         String [] baseColumn = {CryptoCurContract.BASECURRENCY_COLUMN};
         String [] exchangeRateColumn = {CryptoCurContract.EXCHANGERATE_COLUMN};
-        CryptoCurDatabase cryptodatabase = new CryptoCurDatabase(this);
-        SQLiteDatabase db = cryptodatabase.getReadableDatabase();;
         switch (currencyType){
             case 0://retrieve CryptoCurrency
-                Cursor cursorCrypt = db.query(CryptoCurContract.CRYPTOCUR_TABLE,cryptoColumn,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-                while(cursorCrypt.moveToNext()){
-                    currency.add(cursorCrypt.getString(0));
+                Cursor cursorCrypt = getContentResolver().query(CryptoCurContract.CONTENT_BASE_URI,cryptoColumn,null,null,null);
+                if(cursorCrypt!=null){
+                    while(cursorCrypt.moveToNext()){
+                        currency.add(cursorCrypt.getString(0));
+                    }
+                    cursorCrypt.close();
                 }
-                cursorCrypt.close();
-                db.close();
+
                 return currency;
             case 1://retrieve BaseCurrency
-                Cursor cursorBase = db.query(CryptoCurContract.CRYPTOCUR_TABLE,baseColumn,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-                while(cursorBase.moveToNext()){
-                    currency.add(cursorBase.getString(0));
+                Cursor cursorBase = getContentResolver().query(CryptoCurContract.CONTENT_BASE_URI,baseColumn,null,null,null);
+                if(cursorBase!=null){
+                    while(cursorBase.moveToNext()){
+                        currency.add(cursorBase.getString(0));
+                    }
+                    cursorBase.close();
                 }
-                cursorBase.close();
-                db.close();
                 return currency;
             case 2://retrieve ExchangeRateAmount
-                Cursor cursorExchange = db.query(CryptoCurContract.CRYPTOCUR_TABLE,exchangeRateColumn,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-                while(cursorExchange.moveToNext()){
-                    currency.add(cursorExchange.getString(0));
+                Cursor cursorExchange = getContentResolver().query(CryptoCurContract.CONTENT_BASE_URI,exchangeRateColumn,null,null,null);
+                if(cursorExchange!=null){
+                    while(cursorExchange.moveToNext()){
+                        currency.add(cursorExchange.getString(0));
+                    }
+                    cursorExchange.close();
                 }
-                cursorExchange.close();
-                db.close();
                 return currency;
         }
         return null;
     }
 
     private void emptyDatabase(){
-        CryptoCurDatabase cryptoCurDatabase = new CryptoCurDatabase(this);
-        SQLiteDatabase db = cryptoCurDatabase.getWritableDatabase();
-        db.delete(CryptoCurContract.CRYPTOCUR_TABLE, null,null);
-        db.close();
+        getContentResolver().delete(CryptoCurContract.CONTENT_BASE_URI, null, null);
         updateList();
         Toast.makeText(this, "Database Emptied", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void deletedConversioncard(int position, String baseTextString) {
-        CryptoCurDatabase cryptoCurDatabase = new CryptoCurDatabase(this);
-        SQLiteDatabase db = cryptoCurDatabase.getWritableDatabase();
-        db.delete(CryptoCurContract.CRYPTOCUR_TABLE, CryptoCurContract.EXCHANGERATE_COLUMN +" =?", new String[]{baseTextString});
-        db.close();
+        getContentResolver().delete(Uri.withAppendedPath(CryptoCurContract.CONTENT_BASE_URI,String.valueOf(position)),CryptoCurContract.EXCHANGERATE_COLUMN +" =?",
+                new String[]{baseTextString});
         updateList();
         Toast.makeText(this, "Exchange Rate Card Deleted", Toast.LENGTH_SHORT).show();
     }
@@ -235,18 +211,21 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
         if (isConnected){
             if (cryptoText != null){
                 if (cryptoText.equals("BTC")){
+                    if (btcExchangeArray!=null){
+                        for (int i = 0; i<btcExchangeArray.size(); i ++){
+                            map.putAll(btcExchangeArray.get(i));
 
-                    for (int i = 0; i<btcExchangeArray.size(); i ++){
-                        map.putAll(btcExchangeArray.get(i));
-
+                        }
+                        return map.get(baseText);
                     }
-                    return map.get(baseText);
                 }
                 else if (cryptoText.equals("ETH")){
-                    for (int i = 0; i<ethExchangeArray.size(); i ++){
-                        map.putAll(ethExchangeArray.get(i));
+                    if (ethExchangeArray!=null){
+                        for (int i = 0; i<ethExchangeArray.size(); i ++){
+                            map.putAll(ethExchangeArray.get(i));
+                        }
+                        return map.get(baseText);
                     }
-                    return map.get(baseText);
                 }
             }
             else {

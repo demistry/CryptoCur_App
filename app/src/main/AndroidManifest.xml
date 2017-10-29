@@ -34,6 +34,12 @@
         <activity android:name=".activities.ConversionResultActivity"
             android:parentActivityName=".activities.ConversionEntryActivity"
             android:screenOrientation="portrait"/>
+        <provider
+            android:authorities="com.android.cryptocurapp"
+            android:name=".storage.CryptoCurContentProvider"
+            android:exported="false">
+
+        </provider>
     </application>
 
 </manifest>
