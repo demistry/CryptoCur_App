@@ -43,6 +43,9 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
     private ArrayList<Map<String, String>> btcExchangeArray;
     private ArrayList<Map<String, String>> ethExchangeArray;
     private ArrayList<Map<String, String>> sbdExchangeArray;
+    private ArrayList<Map<String, String>> ltcExchangeArray;
+    private ArrayList<Map<String, String>> xrpExchangeArray;
+    private ArrayList<Map<String, String>> bchExchangeArray;
     private String crypto, base;
     private static Map<String, String> map = new HashMap<>();
 
@@ -65,6 +68,9 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
         btcExchangeArray = JSONHelper.parseDisplayJsonString(data,0);
         ethExchangeArray = JSONHelper.parseDisplayJsonString(data, 1);
         sbdExchangeArray = JSONHelper.parseDisplayJsonString(data, 2);
+        ltcExchangeArray = JSONHelper.parseDisplayJsonString(data, 3);
+        xrpExchangeArray = JSONHelper.parseDisplayJsonString(data, 4);
+        bchExchangeArray = JSONHelper.parseDisplayJsonString(data, 5);
         updateList();
 
     }
@@ -231,10 +237,39 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
                     }
                 }
                 else if (cryptoText.equals("SBD")){
-                    for (int i = 0; i<sbdExchangeArray.size(); i++){
-                        map.putAll(sbdExchangeArray.get(i));
+                    if (sbdExchangeArray!=null){
+                        for (int i = 0; i<sbdExchangeArray.size(); i++){
+                            map.putAll(sbdExchangeArray.get(i));
+                        }
+                        return map.get(baseText);
                     }
-                    return map.get(baseText);
+                }
+                else if (cryptoText.equals("LTC")){
+                    if (ltcExchangeArray!=null){
+                        for (int i = 0; i<ltcExchangeArray.size(); i++){
+                            map.putAll(ltcExchangeArray.get(i));
+                        }
+                        return map.get(baseText);
+                    }
+
+                }
+                else if (cryptoText.equals("XRP")){
+                    if (xrpExchangeArray!=null){
+                        for (int i = 0; i<xrpExchangeArray.size(); i++){
+                            map.putAll(xrpExchangeArray.get(i));
+                        }
+                        return map.get(baseText);
+                    }
+
+                }
+                else if (cryptoText.equals("BCH")){
+                    if (bchExchangeArray!=null){
+                        for (int i = 0; i<bchExchangeArray.size(); i++){
+                            map.putAll(bchExchangeArray.get(i));
+                        }
+                        return map.get(baseText);
+                    }
+
                 }
             }
             else {

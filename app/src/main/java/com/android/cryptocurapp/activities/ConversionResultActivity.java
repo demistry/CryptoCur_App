@@ -33,6 +33,9 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
     ArrayList<Map<String, Double>> btcAgainstBase;
     ArrayList<Map<String, Double>> ethAgainstBase;
     ArrayList<Map<String, Double>> sbdAgainstBase;
+    ArrayList<Map<String, Double>> ltcAgainstBase;
+    ArrayList<Map<String, Double>> xrpAgainstBase;
+    ArrayList<Map<String, Double>> bchAgainstBase;
     private Bundle bundle;
     private static double amount;
     private static Map<String, Double> map = new HashMap<>();
@@ -81,6 +84,9 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
         btcAgainstBase = parseRawJsonString(data, 0);
         ethAgainstBase = parseRawJsonString(data, 1);
         sbdAgainstBase = parseRawJsonString(data, 2);
+        ltcAgainstBase = parseRawJsonString(data, 3);
+        xrpAgainstBase = parseRawJsonString(data, 4);
+        bchAgainstBase = parseRawJsonString(data, 5);
 
         convertedCryptoAmount.setText(convertAmount(bundle.getString("cryptoText"), bundle.getString("baseText"), currencyAmountEntered));
 
@@ -114,6 +120,27 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
             else if (cryptoText.equals("SBD")){
                 for (int i = 0; i<sbdAgainstBase.size(); i++){
                     map.putAll(sbdAgainstBase.get(i));
+                }
+                amount = map.get(baseText);
+                return String.format(Locale.ENGLISH, "%.6f", currencyAmountEntered/amount);
+            }
+            else if (cryptoText.equals("LTC")){
+                for (int i = 0; i<ltcAgainstBase.size(); i++){
+                    map.putAll(ltcAgainstBase.get(i));
+                }
+                amount = map.get(baseText);
+                return String.format(Locale.ENGLISH, "%.6f", currencyAmountEntered/amount);
+            }
+            else if (cryptoText.equals("XRP")){
+                for (int i = 0; i<xrpAgainstBase.size(); i++){
+                    map.putAll(xrpAgainstBase.get(i));
+                }
+                amount = map.get(baseText);
+                return String.format(Locale.ENGLISH, "%.6f", currencyAmountEntered/amount);
+            }
+            else if (cryptoText.equals("BCH")){
+                for (int i = 0; i<bchAgainstBase.size(); i++){
+                    map.putAll(bchAgainstBase.get(i));
                 }
                 amount = map.get(baseText);
                 return String.format(Locale.ENGLISH, "%.6f", currencyAmountEntered/amount);
