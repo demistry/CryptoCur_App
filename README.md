@@ -4,4 +4,4 @@ It enables users to create cards to save currency rates in a database and to use
 
 
 You can clone the app, build and run on android studio.
-App runs on android jellybean and above
+App runs on android jellybean and above.
