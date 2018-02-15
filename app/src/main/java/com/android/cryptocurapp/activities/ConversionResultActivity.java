@@ -32,6 +32,7 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
     private double currencyAmountEntered;
     ArrayList<Map<String, Double>> btcAgainstBase;
     ArrayList<Map<String, Double>> ethAgainstBase;
+    ArrayList<Map<String, Double>> sbdAgainstBase;
     private Bundle bundle;
     private static double amount;
     private static Map<String, Double> map = new HashMap<>();
@@ -79,6 +80,8 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
 
         btcAgainstBase = parseRawJsonString(data, 0);
         ethAgainstBase = parseRawJsonString(data, 1);
+        sbdAgainstBase = parseRawJsonString(data, 2);
+
         convertedCryptoAmount.setText(convertAmount(bundle.getString("cryptoText"), bundle.getString("baseText"), currencyAmountEntered));
 
     }
@@ -92,7 +95,6 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
 
                 for (int i = 0; i<btcAgainstBase.size(); i ++){
                     map.putAll(btcAgainstBase.get(i));
-
                 }
                 amount = map.get(baseText);
 
@@ -108,6 +110,13 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
 
 
                 return String.format(Locale.ENGLISH,"%.6f",currencyAmountEntered/amount);
+            }
+            else if (cryptoText.equals("SBD")){
+                for (int i = 0; i<sbdAgainstBase.size(); i++){
+                    map.putAll(sbdAgainstBase.get(i));
+                }
+                amount = map.get(baseText);
+                return String.format(Locale.ENGLISH, "%.6f", currencyAmountEntered/amount);
             }
         }
         else{

@@ -19,29 +19,35 @@ public class JSONHelper {
 
         ArrayList<Map<String, Double>> baseCurrencyBTC = new ArrayList<>();
         ArrayList<Map<String, Double>> baseCurrencyETH = new ArrayList<>();
+        ArrayList<Map<String, Double>> baseCurrencySBD = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(data);
             JSONObject object = jsonObject.getJSONObject("RAW");
             JSONObject objectBTC = object.getJSONObject("BTC");
             JSONObject objectETH = object.getJSONObject("ETH");
+            JSONObject objectSBD = object.getJSONObject("SBD");
 
 
             for (int i = 0; i<currencies.length; i ++){
                 Map<String, Double> hashMapBTC = new HashMap<>();
                 Map<String, Double> hashMapETH = new HashMap<>();
+                Map<String, Double> hashMapSBD = new HashMap<>();
 
 
                 JSONObject obj = objectBTC.getJSONObject(currencies[i]);
                 JSONObject obj2 = objectETH.getJSONObject(currencies[i]);
+                JSONObject obj3 = objectSBD.getJSONObject(currencies[i]);
 
 
                 hashMapBTC.put(currencies[i],obj.getDouble("PRICE"));
                 hashMapETH.put(currencies[i], obj2.getDouble("PRICE"));
+                hashMapSBD.put(currencies[i], obj3.getDouble("PRICE"));
 
 
                 baseCurrencyBTC.add(hashMapBTC);
                 baseCurrencyETH.add(hashMapETH);
+                baseCurrencySBD.add(hashMapSBD);
 
                 Log.v("LOG","BTC price added for "+ hashMapBTC.toString());
                 Log.v("LOG","ETH price added for "+ hashMapETH.toString());
@@ -50,6 +56,8 @@ public class JSONHelper {
                 return baseCurrencyBTC;
             if (cryptoType == 1)
                 return baseCurrencyETH;
+            if (cryptoType == 2)
+                return baseCurrencySBD;
         }
         catch (JSONException json){
             json.printStackTrace();
@@ -63,29 +71,35 @@ public class JSONHelper {
 
         ArrayList<Map<String, String>> baseCurrencyBTC = new ArrayList<>();
         ArrayList<Map<String, String>> baseCurrencyETH = new ArrayList<>();
+        ArrayList<Map<String, String>> baseCurrencySBD = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(data);
             JSONObject object = jsonObject.getJSONObject("DISPLAY");
             JSONObject objectBTC = object.getJSONObject("BTC");
             JSONObject objectETH = object.getJSONObject("ETH");
+            JSONObject objectSBD = object.getJSONObject("SBD");
 
 
             for (int i = 0; i<currencies.length; i ++){
                 Map<String, String> hashMapBTC = new HashMap<>();
                 Map<String, String> hashMapETH = new HashMap<>();
+                Map<String, String> hashMapSBD = new HashMap<>();
 
 
                 JSONObject obj = objectBTC.getJSONObject(currencies[i]);
                 JSONObject obj2 = objectETH.getJSONObject(currencies[i]);
+                JSONObject obj3 = objectSBD.getJSONObject(currencies[i]);
 
 
                 hashMapBTC.put(currencies[i],obj.getString("PRICE"));
                 hashMapETH.put(currencies[i], obj2.getString("PRICE"));
+                hashMapSBD.put(currencies[i], obj3.getString("PRICE"));
 
 
                 baseCurrencyBTC.add(hashMapBTC);
                 baseCurrencyETH.add(hashMapETH);
+                baseCurrencySBD.add(hashMapSBD);
 
                 Log.v("LOG","BTC price added for "+ hashMapBTC.toString());
                 Log.v("LOG","ETH price added for "+ hashMapETH.toString());
@@ -94,6 +108,8 @@ public class JSONHelper {
                 return baseCurrencyBTC;
             if (cryptoType == 1)
                 return baseCurrencyETH;
+            if (cryptoType == 2)
+                return baseCurrencySBD;
         }
         catch (JSONException json){
             json.printStackTrace();

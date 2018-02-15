@@ -3,6 +3,7 @@
     <string-array name="crypto_array">
         <item>BTC</item>
         <item>ETH</item>
+        <item>SBD</item>
     </string-array>
     <string-array name="base_currency_array">
         <item>USD</item>

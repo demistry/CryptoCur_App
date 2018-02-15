@@ -28,6 +28,7 @@ import com.android.cryptocurapp.utils.ExchangeRateAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class UserExchangeActivity extends AppCompatActivity implements ConversionDialogFragment.onCreateButtonClicked,
@@ -41,6 +42,7 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
     private static ArrayList<String> exchangeRateTextArray;
     private ArrayList<Map<String, String>> btcExchangeArray;
     private ArrayList<Map<String, String>> ethExchangeArray;
+    private ArrayList<Map<String, String>> sbdExchangeArray;
     private String crypto, base;
     private static Map<String, String> map = new HashMap<>();
 
@@ -62,6 +64,7 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
     public void onLoadFinished(Loader loader, String data) {
         btcExchangeArray = JSONHelper.parseDisplayJsonString(data,0);
         ethExchangeArray = JSONHelper.parseDisplayJsonString(data, 1);
+        sbdExchangeArray = JSONHelper.parseDisplayJsonString(data, 2);
         updateList();
 
     }
@@ -226,6 +229,12 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
                         }
                         return map.get(baseText);
                     }
+                }
+                else if (cryptoText.equals("SBD")){
+                    for (int i = 0; i<sbdExchangeArray.size(); i++){
+                        map.putAll(sbdExchangeArray.get(i));
+                    }
+                    return map.get(baseText);
                 }
             }
             else {

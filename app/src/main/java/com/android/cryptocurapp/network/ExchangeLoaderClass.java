@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
  */
 
 public class ExchangeLoaderClass extends AsyncTaskLoader<String> {
-    private static final String url = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH&tsyms=USD,GBP,EUR,NGN,CHF,JPY,INR,CAD,AUD,IQD,CNY,ZAR,NZD,RUB,SGD,SEK,KWD,MXN,TRY,BRL";
+    private static final String url = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,SBD&tsyms=USD,GBP,EUR,NGN,CHF,JPY,INR,CAD,AUD,IQD,CNY,ZAR,NZD,RUB,SGD,SEK,KWD,MXN,TRY,BRL";
     public ExchangeLoaderClass(Context context){
         super(context);
     }
