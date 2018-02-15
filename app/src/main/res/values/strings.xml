@@ -4,6 +4,9 @@
         <item>BTC</item>
         <item>ETH</item>
         <item>SBD</item>
+        <item>LTC</item>
+        <item>XRP</item>
+        <item>BCH</item>
     </string-array>
     <string-array name="base_currency_array">
         <item>USD</item>
