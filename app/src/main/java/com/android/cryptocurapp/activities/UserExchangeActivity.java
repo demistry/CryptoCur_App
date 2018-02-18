@@ -244,6 +244,7 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
                         return map.get(baseText);
                     }
                 }
+                //
                 else if (cryptoText.equals("LTC")){
                     if (ltcExchangeArray!=null){
                         for (int i = 0; i<ltcExchangeArray.size(); i++){

@@ -43,6 +43,7 @@ public class ExchangeLoaderClass extends AsyncTaskLoader<String> {
             ioException.printStackTrace();
         }
         return jsonString;
+        //method of querying internet via HTTPUrl class
     }
     private String getJsonString(InputStream inputStream) throws IOException{
         String json = "";
