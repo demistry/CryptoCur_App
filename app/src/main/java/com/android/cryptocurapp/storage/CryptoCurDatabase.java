@@ -18,6 +18,7 @@ public class CryptoCurDatabase extends SQLiteOpenHelper {
     public CryptoCurDatabase(Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String databaseDefined = "CREATE TABLE "+ CryptoCurContract.CRYPTOCUR_TABLE+ " ("+
