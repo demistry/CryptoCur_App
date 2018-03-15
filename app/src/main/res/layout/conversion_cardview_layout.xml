@@ -6,12 +6,11 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     >
-    <android.support.v7.widget.CardView
+    <FrameLayout
         android:id="@+id/exchange_rate_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+
         >
         <FrameLayout
             android:layout_width="match_parent"
@@ -67,6 +66,6 @@
                 android:src="@drawable/ic_delete_black_24dp"/>
         </FrameLayout>
 
-    </android.support.v7.widget.CardView>
+    </FrameLayout>
 
 </FrameLayout>

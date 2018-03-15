@@ -67,8 +67,8 @@ public class JSONHelper {
                 baseCurrencyXRP.add(hashMapXRP);
                 baseCurrencyBCH.add(hashMapBCH);
 
-                Log.v("LOG","BTC price added for "+ hashMapBTC.toString());
-                Log.v("LOG","ETH price added for "+ hashMapETH.toString());
+                //Log.v("LOG","BTC price added for "+ hashMapBTC.toString());
+                //Log.v("LOG","ETH price added for "+ hashMapETH.toString());
             }
             if (cryptoType == 0)
                 return baseCurrencyBTC;
@@ -145,8 +145,8 @@ public class JSONHelper {
                 baseCurrencyXRP.add(hashMapXRP);
                 baseCurrencyBCH.add(hashMapBCH);
 
-                Log.v("LOG","BTC price added for "+ hashMapBTC.toString());
-                Log.v("LOG","ETH price added for "+ hashMapETH.toString());
+                //Log.v("LOG","BTC price added for "+ hashMapBTC.toString());
+                //Log.v("LOG","ETH price added for "+ hashMapETH.toString());
             }
             if (cryptoType == 0)
                 return baseCurrencyBTC;

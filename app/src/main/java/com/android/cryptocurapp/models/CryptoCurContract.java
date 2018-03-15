@@ -2,14 +2,15 @@ package com.android.cryptocurapp.models;
 
 
 import android.net.Uri;
+import android.provider.BaseColumns;
 
 /**
  * Created by ILENWABOR DAVID on 20/10/2017.
  */
 
-public final class CryptoCurContract {
+public final class CryptoCurContract implements BaseColumns{
     public static final String CRYPTOCUR_TABLE = "CryptoCurApp";
-    public static final String CRYPTOCUR_ID = "_id";
+    public static final String CRYPTOCUR_ID = BaseColumns._ID;
     public static final String CRYPTOCURRENCY_COLUMN = "CryptoCurrency";
     public static final String BASECURRENCY_COLUMN = "BaseCurrency";
     public static final String EXCHANGERATE_COLUMN = "ExchangeRate";

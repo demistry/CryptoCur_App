@@ -85,6 +85,17 @@ public class CryptoCurContentProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        SQLiteDatabase database = cryptoCurDatabase.getWritableDatabase();
+        int match = uriMatcher.match(uri);
+        if (match == CONTENT_CRYPTOCUR_TABLE){
+            database.update(CryptoCurContract.CRYPTOCUR_TABLE, values, null, null);
+        }
+        if (match == CONTENT_CRYPTOCUR_TABLE_ROW){
+            int i = database.update(CryptoCurContract.CRYPTOCUR_TABLE, values, selection, selectionArgs);
+            //Toast.makeText(getContext(), "Number of rows affected "+ i, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Exchange rate added in content provider " + values.getAsString(CryptoCurContract.EXCHANGERATE_COLUMN), Toast.LENGTH_SHORT).show();
+            database.close();
+        }
         return 0;
     }
 }
