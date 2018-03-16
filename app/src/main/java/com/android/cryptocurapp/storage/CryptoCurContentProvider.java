@@ -91,10 +91,7 @@ public class CryptoCurContentProvider extends ContentProvider {
             database.update(CryptoCurContract.CRYPTOCUR_TABLE, values, null, null);
         }
         if (match == CONTENT_CRYPTOCUR_TABLE_ROW){
-            int i = database.update(CryptoCurContract.CRYPTOCUR_TABLE, values, selection, selectionArgs);
-            //Toast.makeText(getContext(), "Number of rows affected "+ i, Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getContext(), "Exchange rate added in content provider " + values.getAsString(CryptoCurContract.EXCHANGERATE_COLUMN), Toast.LENGTH_SHORT).show();
-            database.close();
+            //do nothing
         }
         return 0;
     }
