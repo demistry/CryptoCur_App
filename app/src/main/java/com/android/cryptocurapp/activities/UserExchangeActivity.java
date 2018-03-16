@@ -33,6 +33,7 @@ import com.android.cryptocurapp.storage.DatabaseRoom;
 import com.android.cryptocurapp.storage.RoomEntity;
 import com.android.cryptocurapp.utils.ExchangeRateAdapter;
 import com.android.cryptocurapp.utils.MyMapEntry;
+import com.android.cryptocurapp.utils.TextSingleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,8 +78,10 @@ public class UserExchangeActivity extends AppCompatActivity implements Conversio
     @Override
     public void conversionCardClicked(String cryptoText, String baseText, int position) {
         Intent intent = new Intent(UserExchangeActivity.this, ConversionEntryActivity.class);
-        intent.putExtra("crypto",cryptoText);
-        intent.putExtra("base", baseText);
+        //intent.putExtra("crypto",cryptoText);
+        TextSingleton.getInstance().setCryptoText(cryptoText);
+        TextSingleton.getInstance().setBaseText(baseText);
+        //intent.putExtra("base", baseText);
         startActivity(intent);
     }
 

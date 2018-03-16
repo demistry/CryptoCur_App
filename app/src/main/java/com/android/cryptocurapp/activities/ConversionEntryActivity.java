@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.cryptocurapp.R;
+import com.android.cryptocurapp.utils.TextSingleton;
 
 public class ConversionEntryActivity extends AppCompatActivity {
     private String cryptoText, baseText;
@@ -22,15 +23,16 @@ public class ConversionEntryActivity extends AppCompatActivity {
         if (getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        currencyAmountEntered = (EditText) findViewById(R.id.base_currency_amount_entered);
-        baseCurrencyTextView = (TextView) findViewById(R.id.base_currency_text);
-        cryptoCurrencyTextView = (TextView) findViewById(R.id.crypto_currency_text);
-        button = (Button) findViewById(R.id.convert_button);
+        currencyAmountEntered = findViewById(R.id.base_currency_amount_entered);
+        baseCurrencyTextView = findViewById(R.id.base_currency_text);
+        cryptoCurrencyTextView = findViewById(R.id.crypto_currency_text);
+        button = findViewById(R.id.convert_button);
 
 
-        Bundle bundle = getIntent().getExtras();
-        cryptoText = bundle.getString("crypto");
-        baseText = bundle.getString("base");
+
+        cryptoText = TextSingleton.getInstance().getCryptoText();
+        baseText = TextSingleton.getInstance().getBaseText();
+
         baseCurrencyTextView.setText(baseText);
         cryptoCurrencyTextView.setText(cryptoText);
 

@@ -30,12 +30,12 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
     private Button homeButton;
     private TextView convertedCryptoText, convertedCryptoAmount, convertedBaseCurrency, convertedBaseAmount;
     private double currencyAmountEntered;
-    ArrayList<Map<String, Double>> btcAgainstBase;
-    ArrayList<Map<String, Double>> ethAgainstBase;
-    ArrayList<Map<String, Double>> sbdAgainstBase;
-    ArrayList<Map<String, Double>> ltcAgainstBase;
-    ArrayList<Map<String, Double>> xrpAgainstBase;
-    ArrayList<Map<String, Double>> bchAgainstBase;
+    static ArrayList<Map<String, Double>> btcAgainstBase;
+    static ArrayList<Map<String, Double>> ethAgainstBase;
+    static ArrayList<Map<String, Double>> sbdAgainstBase;
+    static ArrayList<Map<String, Double>> ltcAgainstBase;
+    static ArrayList<Map<String, Double>> xrpAgainstBase;
+    static ArrayList<Map<String, Double>> bchAgainstBase;
     private Bundle bundle;
     private static double amount;
     private static Map<String, Double> map = new HashMap<>();
@@ -88,12 +88,12 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
         xrpAgainstBase = parseRawJsonString(data, 4);
         bchAgainstBase = parseRawJsonString(data, 5);
 
-        convertedCryptoAmount.setText(convertAmount(bundle.getString("cryptoText"), bundle.getString("baseText"), currencyAmountEntered));
+        convertedCryptoAmount.setText(convertAmount(bundle.getString("cryptoText"), bundle.getString("baseText"), currencyAmountEntered, this));
 
     }
 
-    public String convertAmount(String cryptoText, String baseText, double currencyAmountEntered){
-        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static String convertAmount(String cryptoText, String baseText, double currencyAmountEntered, Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork!=null && activeNetwork.isConnectedOrConnecting();
         if (isConnected){
@@ -147,7 +147,7 @@ public class ConversionResultActivity extends AppCompatActivity implements Loade
             }
         }
         else{
-            Toast.makeText(this, "Check internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Check internet connection", Toast.LENGTH_SHORT).show();
             return "";
         }
 
